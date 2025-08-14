@@ -1,0 +1,104 @@
+"use client"
+
+import { useState, useEffect } from "react"
+import { Users, Plus } from "lucide-react"
+import { Button } from "@/components/ui/button"
+
+interface ChatMessage {
+  id: number
+  username: string
+  timestamp: string
+  message: string
+  avatar: string
+  hasFlag?: boolean
+}
+
+interface LiveChatProps {
+  onAddUser: () => void
+  players: any[]
+}
+
+export function LiveChat({ onAddUser, players }: LiveChatProps) {
+  const [messages, setMessages] = useState<ChatMessage[]>([])
+
+  useEffect(() => {
+    if (players.length > 0) {
+      const playerMessages = players.map((player, index) => ({
+        id: Date.now() + index,
+        username: player.username,
+        timestamp: "10:17",
+        message: "Betting my house now wish me luck please",
+        avatar: "/images/cartoon-avatar.jpeg",
+        hasFlag: true,
+      }))
+      setMessages(playerMessages.reverse()) // Newest first
+    }
+  }, [players])
+
+  return (
+    <div className="h-full bg-[#1B1B23] flex flex-col">
+      {/* Header */}
+      <div className="p-3 sm:p-4 border-b border-[#2a2a39] bg-[#282834] flex-shrink-0">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="font-medium text-white text-sm sm:text-base">Live Chat</span>
+            <div className="bg-[#3f70e4] text-white px-2 py-1 text-xs flex items-center gap-1">
+              <Users className="w-3 h-3" />
+              {players.length}
+            </div>
+          </div>
+          <Button onClick={onAddUser} size="sm" className="bg-[#3f70e4] hover:bg-[#3f70e4]/80 h-6 w-6 p-0">
+            <Plus className="w-3 h-3" />
+          </Button>
+        </div>
+      </div>
+
+      {/* Chat Messages */}
+      <div className="flex-grow overflow-y-auto">
+        <div className="p-3 sm:p-4">
+          {messages.length === 0 ? (
+            <div className="flex items-center justify-center py-8 text-gray-500 text-sm">No messages yet...</div>
+          ) : (
+            <div className="space-y-3">
+              {messages.map((msg) => (
+                <div key={msg.id} className="flex items-start gap-2 sm:gap-3">
+                  <img
+                    src={msg.avatar || "/placeholder.svg"}
+                    alt="User"
+                    className="w-6 h-6 sm:w-[38px] sm:h-[38px] flex-shrink-0"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-xs sm:text-sm font-bold text-white truncate">{msg.username}</span>
+                      <span className="text-xs text-gray-500 flex-shrink-0">{msg.timestamp}</span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-gray-300 break-words">
+                      {msg.message}
+                      {msg.hasFlag && <span className="ml-1">🏠</span>}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Chat Input */}
+      <div className="p-3 sm:p-4 border-t border-[#2a2a39] flex-shrink-0">
+        <div className="relative">
+          <input
+            type="text"
+            placeholder="Write here"
+            className="w-full bg-[#14151a] border border-[#2a2a39] px-3 py-2 text-xs sm:text-sm placeholder-gray-500 text-white pr-10"
+          />
+          <button className="absolute right-2 top-1/2 transform -translate-y-1/2">
+            <div className="w-5 h-5 sm:w-6 sm:h-6 bg-[#2a2a39] flex items-center justify-center hover:bg-[#3a3a49] transition-colors">
+              <Plus className="w-3 h-3 text-gray-400" />
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
