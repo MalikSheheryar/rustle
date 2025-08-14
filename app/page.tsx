@@ -109,9 +109,9 @@ export default function RustleGamingInterface() {
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1  px-2 flex flex-col min-w-0">
+      <div className="flex-1   pl-2 flex flex-col min-w-0">
         <div className="bg-[#14151a] border-b border-[#2a2a39]/30 px-2 sm:px-4 py-1">
-          <nav className="flex items-center justify-start gap-3 sm:gap-6 text-xs text-gray-500 overflow-x-auto">
+          <nav className="flex items-center justify-start gap-3 font-semibold sm:gap-6 text-[12px] text-gray-500 overflow-x-auto">
             <a
               href="#"
               className="hover:text-gray-300 transition-colors whitespace-nowrap"
@@ -181,11 +181,11 @@ export default function RustleGamingInterface() {
                   activeTab === 'jackpot' ? 'opacity-100' : 'opacity-60'
                 }`}
               >
-                <div className="flex items-center gap-3">
+                <div className="flex  items-center gap-3">
                   <img
-                    src="/images/jackpot-icon.png"
+                    src="/images/jackpot-icon.svg"
                     alt="Jackpot"
-                    className="w-6 h-6"
+                    className="w-[41px] h-[41px]"
                   />
                   <div className="flex flex-col items-start">
                     <span className="font-bold text-white text-[16px]">
@@ -209,9 +209,9 @@ export default function RustleGamingInterface() {
               >
                 <div className="flex items-center gap-3">
                   <img
-                    src="/images/coinflip-icon.png"
+                    src="/images/coinflip-icon.svg"
                     alt="Coinflip"
-                    className="w-6 h-6"
+                    className="w-[41px] h-[41px]"
                   />
                   <div className="flex flex-col items-start">
                     <span className="font-bold text-white text-[16px]">
@@ -236,7 +236,7 @@ export default function RustleGamingInterface() {
                 className="w-8 h-8 sm:w-10 sm:h-10 rounded"
               />
               <div className="hidden sm:flex items-center gap-1">
-                <span className="font-medium text-sm">Username</span>
+                <span className="font-bold text-[16px]">Username</span>
                 <ChevronDown className="w-4 h-4 text-gray-400" />
               </div>
 
@@ -295,9 +295,9 @@ export default function RustleGamingInterface() {
         </header>
 
         {/* Main Game Area */}
-        <div className="flex flex-1 min-h-0">
+        <div className="flex flex-1  min-h-0">
           {/* Game Content */}
-          <div className="flex-1 flex flex-col min-w-0">
+          <div className="flex-1  flex flex-col min-w-0">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 lg:p-6 bg-[#14151a]   gap-3 sm:gap-0">
               <div className="min-w-0">
                 <div className="flex items-center gap-3 mb-2">
@@ -308,19 +308,22 @@ export default function RustleGamingInterface() {
                         : '/images/coinflip-icon.png'
                     }
                     alt={activeTab}
-                    className="w-6 h-6 sm:w-8 sm:h-8 flex-shrink-0"
+                    className="w-6 h-6 sm:w-[36px] sm:h-[36px] flex-shrink-0"
                   />
-                  <h1 className="text-xl sm:text-2xl font-bold capitalize">
+                  <h1 className="text-xl sm:text-2xl font-extrabold capitalize">
                     {activeTab}
                   </h1>
                 </div>
-                <p className="text-gray-400 text-sm sm:text-base">
+                <p className="text-gray-400 text-sm sm:text-[16px] font-semibold">
                   All for the pot, and the pot for one
                 </p>
               </div>
-              <button className="bg-[#3f70e4] rounded-sm hover:bg-[#3f70e4]/80 px-6 cursor-pointer sm:px-10  py-2 text-sm sm:text-base w-full sm:w-auto">
-                Deposit
-              </button>
+              <button
+  className="relative bg-[url('/images/deposit.svg')] bg-cover bg-center rounded-sm hover:opacity-80 cursor-pointer sm:px-10 py-2 text-sm sm:text-base w-[164px] sm:w-auto text-white"
+>
+  Deposit
+</button>
+
             </div>
 
             {/* Game Area */}
@@ -330,7 +333,7 @@ export default function RustleGamingInterface() {
           </div>
 
           {/* Right Sidebar - Winners (Desktop) */}
-          <div className="hidden lg:flex  w-70  bg-[#14151a]">
+          <div className="hidden lg:flex  w-50  bg-[#14151a]">
             <WinnersSidebar />
           </div>
         </div>

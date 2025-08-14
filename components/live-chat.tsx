@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Users, Plus } from "lucide-react"
+import { User, Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 interface ChatMessage {
@@ -41,9 +41,9 @@ export function LiveChat({ onAddUser, players }: LiveChatProps) {
       <div className="p-3 sm:p-4 border-b border-[#2a2a39] bg-[#282834] flex-shrink-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="font-medium text-white text-sm sm:text-base">Live Chat</span>
-            <div className="bg-[#3f70e4] text-white px-2 py-1 text-xs flex items-center gap-1">
-              <Users className="w-3 h-3" />
+            <span className="font-bold text-white text-sm sm:text-[20px] sm:text-base">Live Chat</span>
+            <div className="bg-[#3f70e4] text-white px-2 py-1 text-[16px] flex items-center gap-1">
+              <User className="w-4 h-4" />
               {players.length}
             </div>
           </div>
