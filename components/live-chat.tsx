@@ -36,7 +36,7 @@ export function LiveChat({ onAddUser, players }: LiveChatProps) {
   }, [players])
 
   return (
-    <div className="h-full bg-[#1B1B23] flex flex-col">
+    <div className="h-[100vh] sticky top-0 bottom-0 bg-[#1B1B23] flex flex-col">
       {/* Header */}
       <div className="p-3 sm:p-4 border-b border-[#2a2a39] bg-[#282834] flex-shrink-0">
         <div className="flex items-center justify-between">

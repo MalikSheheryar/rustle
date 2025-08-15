@@ -97,74 +97,78 @@ export function JackpotGame({ players, onDeleteUser }: JackpotGameProps) {
     }
   };
 
+  const startSpinning = () => {
+    setGameState('spinning');
+    setIsSpinning(true);
+    setWinnerCardTwist(false);
 
+    const randomWinner = players[Math.floor(Math.random() * players.length)];
+    setWinner(randomWinner);
 
-const startSpinning = () => {
-  setGameState('spinning');
-  setIsSpinning(true);
-  setWinnerCardTwist(false);
+    const tileWidth = 144 + 12; // tile width (144px) + gap (12px from gap-3)
+    const containerWidth = spinContainerRef.current?.offsetWidth || 800;
 
-  const randomWinner = players[Math.floor(Math.random() * players.length)];
-  setWinner(randomWinner);
+    const repetitions = 12;
 
-  const tileWidth = 140;
-  const containerWidth = spinContainerRef.current?.offsetWidth || 800;
+    // Find winner index in original array
+    const winnerIndexOriginal = players.findIndex(
+      (p) => p.id === randomWinner.id
+    );
 
-  const repetitions = 12; // more loops for a faster-looking spin
-  const infiniteTiles = createInfiniteTiles();
+    // Calculate winner position in the last repetition (to ensure we land on it)
+    const winnerTileIndex =
+      winnerIndexOriginal + players.length * (repetitions - 1);
 
-  // Winner in the original players array
-  const winnerIndexOriginal = players.findIndex(p => p.id === randomWinner.id)+2;
+    // Calculate exact center position under the ticker
+    const centerOffset = containerWidth / 2 - tileWidth / 2;
+    const winnerTilePosition = winnerTileIndex * tileWidth;
+    const finalPosition = -(winnerTilePosition - centerOffset);
 
-  // Pick winner from the last repetition
-  const winnerTileIndex = winnerIndexOriginal + players.length * (repetitions - 1);
+    let startTime: number;
+    const totalDuration = 8000; // 10 seconds total
+    const fastSpinDuration = 6000; // 8 seconds fast spinning
+    const slowSpinDuration = 2000; // 2 seconds slow down
 
-  // Center the winner under the pointer
-  const centerOffset = containerWidth / 2 - tileWidth / 2;
-  const winnerTilePosition = winnerTileIndex * tileWidth;
-  const finalPosition = -(winnerTilePosition - centerOffset);
+    const animate = (currentTime: number) => {
+      if (!startTime) startTime = currentTime;
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / totalDuration, 1);
 
-  let startTime: number;
-  const spinDuration = 10000; // 10 seconds
+      let easedProgress;
 
-  const animate = (currentTime: number) => {
-    if (!startTime) startTime = currentTime;
-    const elapsed = currentTime - startTime;
-    const progress = Math.min(elapsed / spinDuration, 1);
+      if (elapsed < fastSpinDuration) {
+        // Fast spinning phase (linear for consistent speed)
+        const fastProgress = elapsed / fastSpinDuration;
+        easedProgress = fastProgress * 0.95; // increase from 0.9 to 0.95 to cover more distance quickly
+      } else {
+        // Slow down phase (ease-out for deceleration)
+        const slowProgress = (elapsed - fastSpinDuration) / slowSpinDuration;
+        const easeOut = 1 - Math.pow(1 - slowProgress, 3); // cubic ease-out
+        easedProgress = 0.95 + easeOut * 0.05; // remaining 5% with easing
+      }
 
-    // Ease-in-out quart for smooth acceleration/deceleration
-    const easeInOutQuart = (t: number) =>
-      t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
+      const currentOffset = finalPosition * easedProgress;
+      setSpinOffset(currentOffset);
 
-    const easedProgress = easeInOutQuart(progress);
+      // Trigger winner animation at 95% completion
+      if (progress > 0.95 && !winnerCardTwist) {
+        setWinnerCardTwist(true);
+      }
 
-    // Dynamic distance: spins full finalPosition
-    const currentOffset = finalPosition * easedProgress;
+      if (progress < 1) {
+        animationRef.current = requestAnimationFrame(animate);
+      } else {
+        setIsSpinning(false);
 
-    setSpinOffset(currentOffset);
+        // <-- Add the 3px nudge here
+        setSpinOffset((prev) => prev - 10);
 
-    // Winner card twist trigger near the end
-    if (progress > 0.95 && !winnerCardTwist) {
-      setWinnerCardTwist(true);
-    }
+        setTimeout(() => setGameState('finished'), 1000);
+      }
+    };
 
-    if (progress < 1) {
-      animationRef.current = requestAnimationFrame(animate);
-    } else {
-      setIsSpinning(false);
-      setTimeout(() => setGameState('finished'), 500);
-    }
+    animationRef.current = requestAnimationFrame(animate);
   };
-
-  animationRef.current = requestAnimationFrame(animate);
-};
-
-
-
-
-
-
-
 
   const resetGame = () => {
     if (animationRef.current) {
@@ -188,14 +192,6 @@ const startSpinning = () => {
 
   const createInfiniteTiles = () => {
     const baseColors = [
-      // 'bg-gradient-to-br from-purple-500 to-purple-600',
-      // 'bg-gradient-to-br from-blue-500 to-blue-600',
-      // 'bg-gradient-to-br from-pink-500 to-pink-600',
-      // 'bg-gradient-to-br from-orange-500 to-orange-600',
-      // 'bg-gradient-to-br from-yellow-500 to-yellow-600',
-      // 'bg-gradient-to-br from-red-500 to-red-600',
-      // 'bg-gradient-to-br from-green-500 to-green-600',
-      // 'bg-gradient-to-br from-teal-500 to-teal-600',
       '/images/bg1.svg',
       '/images/bg2.svg',
       '/images/bg3.svg',
@@ -223,7 +219,7 @@ const startSpinning = () => {
   const gridAvatars = players.map((player, index) => ({
     ...player,
     bgColor: [
-       '/images/bg1.svg',
+      '/images/bg1.svg',
       '/images/bg2.svg',
       '/images/bg3.svg',
       '/images/bg4.svg',
@@ -316,15 +312,15 @@ const startSpinning = () => {
             >
               {gridAvatars.map((tile) => (
                 <div
-  key={tile.id}
-  className={`p-4 flex-shrink-0 w-[144px] h-[248px] flex flex-col items-center justify-center border border-white/10 transition-transform duration-1000`}
-  style={{
-    userSelect: 'none',
-    backgroundImage: `url(${tile.bgColor})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  }}
->
+                  key={tile.id}
+                  className={`p-4 flex-shrink-0 w-[144px] h-[196px] flex flex-col items-center justify-center border border-white/10 transition-transform duration-1000`}
+                  style={{
+                    userSelect: 'none',
+                    backgroundImage: `url(${tile.bgColor})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                  }}
+                >
                   <img
                     src={tile.avatar || '/placeholder.svg'}
                     alt={tile.username}
@@ -345,7 +341,7 @@ const startSpinning = () => {
       )}
 
       {(gameState === 'spinning' || gameState === 'finished') && (
-        <div className="min-h-[140px]  sm:min-h-[160px] mb-4 sm:mb-6 relative overflow-hidden bg-[#1a1b23]">
+        <div className="min-h-[140px] sm:min-h-[160px] mb-4 sm:mb-6 relative overflow-hidden bg-[#1a1b23]">
           {/* Pointer */}
           <div className="absolute top-2 left-1/2 transform -translate-x-1/2 z-20">
             <div className="w-0 h-0 border-l-[15px] border-r-[15px] border-t-[25px] border-l-transparent border-r-transparent border-t-white drop-shadow-lg"></div>
@@ -361,21 +357,19 @@ const startSpinning = () => {
             }}
           >
             {createInfiniteTiles().map((tile) => {
-             
               const isWinnerTile =
                 winner &&
                 tile.originalIndex ===
                   players.findIndex((p) => p.id === winner.id);
 
-              const shouldTwist =
+              const shouldAnimate =
                 isWinnerTile && winnerCardTwist && !isSpinning;
-               console.log({winner,isWinnerTile})
 
               return (
                 <div
                   key={tile.id}
-                  className={`p-4 flex-shrink-0 w-[144px] h-[248px] flex flex-col items-center justify-center border border-white/10 transition-transform duration-1000 ${
-                    shouldTwist ? 'animate-twistY' : ''
+                  className={`p-4 flex-shrink-0 w-[144px] h-[196px] flex flex-col items-center justify-center transition-all duration-1000 ${
+                    shouldAnimate ? 'animate-winner-celebration' : ''
                   }`}
                   style={{
                     transformStyle: 'preserve-3d',
@@ -464,7 +458,9 @@ const startSpinning = () => {
           </div>
         </div>
         <div className="bg-[#1a1b23] p-4 text-center ">
-          <div className="text-gray-400 font-semibold text-[14px] sm:text-sm mb-2">Items</div>
+          <div className="text-gray-400 font-semibold text-[14px] sm:text-sm mb-2">
+            Items
+          </div>
           <div className="text-lg sm:text-xl font-bold text-white">
             {players.length}
           </div>
@@ -493,7 +489,10 @@ const startSpinning = () => {
         </div>
         <div className="flex text-white items-center ">
           <User className="w-[20px] font-semibold h-[20px] sm:w-4 sm:h-4" />
-          <span className=' mr-2 font-semibold text-[16px]'>{players.length}</span><span className='text-neutral-500 text-[16px]'>Players</span>
+          <span className=" mr-2 font-semibold text-[16px]">
+            {players.length}
+          </span>
+          <span className="text-neutral-500 text-[16px]">Players</span>
         </div>
       </div>
 

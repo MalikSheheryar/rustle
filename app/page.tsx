@@ -87,7 +87,7 @@ export default function RustleGamingInterface() {
   return (
     <div className="min-h-screen bg-[#14151a] text-white flex flex-col lg:flex-row">
       {/* Left Sidebar - Desktop */}
-      <div className="hidden lg:flex w-80 bg-[#1b1b23] border-r border-[#2a2a39] flex-col">
+      <div className="hidden lg:flex w-80 bg-[#1b1b23]  left-0 border-r border-[#2a2a39] flex-col">
         <div className=" border-b border-[#2a2a39] overflow-hidden">
           <div className="flex items-center justify-center  gap-3">
             <Image
@@ -155,10 +155,10 @@ export default function RustleGamingInterface() {
           </nav>
         </div>
 
-        <header className="  bg-[#1b1b23]  flex-shrink-0 px-3 sm:px-4 lg:px-6 pt-4">
+        <header className="  bg-[#1b1b23]  flex-shrink-0 px-3 sm:px-4 lg:px-6 pt-2">
           <div className="flex items-center justify-between ">
             {/* Mobile Menu & Logo */}
-            <div className="flex items-center gap-3 lg:hidden">
+            <div className="flex items-center gap-3  lg:hidden">
               <Button
                 variant="ghost"
                 size="sm"
@@ -174,7 +174,7 @@ export default function RustleGamingInterface() {
             </div>
 
             {/* Desktop Game Tabs */}
-            <div className="hidden  lg:flex items-end gap-8">
+            <div className="hidden   lg:flex items-end gap-8">
               <button
                 onClick={() => setActiveTab('jackpot')}
                 className={`flex flex-col items-center gap-2 pb-2 relative group ${
@@ -229,7 +229,7 @@ export default function RustleGamingInterface() {
             </div>
 
             {/* User Section */}
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex items-center relative bottom-1 gap-2 sm:gap-3 ">
               <img
                 src="/images/cartoon-avatar.jpeg"
                 alt="User"
@@ -251,7 +251,7 @@ export default function RustleGamingInterface() {
             </div>
           </div>
 
-          <div className="flex lg:hidden px-3 sm:px-4 pb-3 sm:pb-4 gap-2 sm:gap-4">
+          <div className="flex  lg:hidden px-3 sm:px-4 pb-3 sm:pb-4 gap-2 sm:gap-4">
             <button
               onClick={() => setActiveTab('jackpot')}
               className="flex items-center gap-2 pb-2 relative flex-1 min-w-0"
