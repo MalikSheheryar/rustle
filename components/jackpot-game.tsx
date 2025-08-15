@@ -155,16 +155,18 @@ export function JackpotGame({ players, onDeleteUser }: JackpotGameProps) {
         setWinnerCardTwist(true);
       }
 
-      if (progress < 1) {
-        animationRef.current = requestAnimationFrame(animate);
-      } else {
-        setIsSpinning(false);
+ if (progress < 1) {
+  animationRef.current = requestAnimationFrame(animate);
+} else {
+  setIsSpinning(false);
 
-        // <-- Add the 3px nudge here
-        setSpinOffset((prev) => prev - 10);
+  // Conditional nudge based on window width
+  setSpinOffset((prev) => 
+    window.innerWidth > 1500 ? prev + 170 : prev - 10
+  );
 
-        setTimeout(() => setGameState('finished'), 1000);
-      }
+  setTimeout(() => setGameState('finished'), 1000);
+}
     };
 
     animationRef.current = requestAnimationFrame(animate);
