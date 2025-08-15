@@ -370,7 +370,7 @@ export function JackpotGame({ players, onDeleteUser }: JackpotGameProps) {
               return (
                 <div
                   key={tile.id}
-                  className={`p-4 flex-shrink-0 w-[144px] h-[196px] flex flex-col items-center justify-center transition-all duration-1000 ${
+                  className={`p-4 flex-shrink-0 w-[196px] h-[2y46px] flex flex-col items-center justify-center transition-all duration-1000 ${
                     shouldAnimate ? 'animate-winner-celebration' : ''
                   }`}
                   style={{
@@ -383,7 +383,7 @@ export function JackpotGame({ players, onDeleteUser }: JackpotGameProps) {
                   <img
                     src={tile.avatar || '/placeholder.svg'}
                     alt={tile.username}
-                    className="w-[112px] h-[112px] object-cover mb-2 rounded"
+                    className="w-[164px] h-[164px] object-cover mb-2 rounded"
                   />
                   <div className="text-white text-sm font-bold text-center truncate w-full px-1">
                     {tile.username}

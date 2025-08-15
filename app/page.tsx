@@ -110,8 +110,8 @@ export default function RustleGamingInterface() {
 
       {/* Main Content Area */}
       <div className="flex-1   pl-2 flex flex-col min-w-0">
-        <div className="bg-[#14151a] border-b border-[#2a2a39]/30 px-2 sm:px-4 py-1">
-          <nav className="flex items-center justify-start gap-3 font-semibold sm:gap-6 text-[12px] text-neutral-500 overflow-x-auto">
+        <div className="bg-[#14151a] border-b border-[#2a2a39]/30 px-2 sm:px-4 py-[6px]">
+          <nav className="flex items-center justify-start gap-4 font-semibold sm:gap-6 text-[12px] text-neutral-500 overflow-x-auto">
             <a
               href="#"
               className="hover:text-gray-300 transition-colors whitespace-nowrap"
@@ -136,7 +136,7 @@ export default function RustleGamingInterface() {
             >
               Support
             </a>
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-4">
               <Image
                 src="/images/discord.svg"
                 alt="Discord"
@@ -155,8 +155,8 @@ export default function RustleGamingInterface() {
           </nav>
         </div>
 
-        <header className="  bg-[#1b1b23]  flex-shrink-0 px-3 sm:px-4 lg:px-6 pt-2">
-          <div className="flex items-center justify-between ">
+        <header className="  bg-[#1b1b23] -ml-1.5 flex-shrink-0 px-3 h-[89px] flex   items-center sm:px-4 lg:px-6 pt-2">
+          <div className="flex items-center  w-full justify-between ">
             {/* Mobile Menu & Logo */}
             <div className="flex items-center gap-3  lg:hidden">
               <Button
@@ -179,7 +179,7 @@ export default function RustleGamingInterface() {
             </div>
 
             {/* Desktop Game Tabs */}
-            <div className="hidden   lg:flex items-end gap-8">
+            <div className="hidden   lg:flex items-end gap-8  ">
               <button
                 onClick={() => setActiveTab('jackpot')}
                 className={`flex flex-col items-center gap-2 pb-2 relative group ${
@@ -202,7 +202,7 @@ export default function RustleGamingInterface() {
                   </div>
                 </div>
                 {activeTab === 'jackpot' && (
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#3f70e4]"></div>
+                  <div className="absolute -bottom-3.5 left-0 right-0 h-0.75 bg-[#3f70e4]"></div>
                 )}
               </button>
 
@@ -228,7 +228,7 @@ export default function RustleGamingInterface() {
                   </div>
                 </div>
                 {activeTab === 'coinflip' && (
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#d33838]"></div>
+                  <div className="absolute -bottom-3.5 left-0 right-0 h-0.75 bg-[#d33838]"></div>
                 )}
               </button>
             </div>
@@ -238,7 +238,7 @@ export default function RustleGamingInterface() {
               <img
                 src="/images/cartoon-avatar.jpeg"
                 alt="User"
-                className="w-8 h-8 sm:w-10 sm:h-10 rounded"
+                className="lg:w-12 lg:h-12 w-8 h-8 sm:w-10 sm:h-10 rounded"
               />
               <div className="hidden sm:flex items-center gap-1">
                 <span className="font-bold text-[16px]">Username</span>
@@ -323,7 +323,7 @@ export default function RustleGamingInterface() {
                   All for the pot, and the pot for one
                 </p>
               </div>
-              <button className="relative bg-[url('/images/deposit.svg')] bg-cover bg-center rounded-[4px] hover:opacity-80 cursor-pointer sm:px-10 py-2 text-sm sm:text-base w-[164px] sm:w-auto text-white border-t-[0.15px] border-white/15">
+              <button className="relative bg-[url('/images/deposit.svg')] bg-cover bg-center p-3 rounded-[4px] hover:opacity-80 cursor-pointer lg:w-[168px]  sm:px-10  text-[16px] font-semibold sm:text-base sm:w-auto text-white border-white/15">
                 Deposit
               </button>
             </div>

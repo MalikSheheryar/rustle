@@ -38,18 +38,20 @@ export function LiveChat({ onAddUser, players }: LiveChatProps) {
   return (
     <div className="h-[100vh] sticky top-0 bottom-0 bg-[#1B1B23] flex flex-col">
       {/* Header */}
-      <div className="p-3 sm:p-4 border-b border-[#2a2a39] bg-[#282834] flex-shrink-0">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+    
+      <div className="p-3 sm:p-4 border-b border-[#2a2a39] bg-[#282834] flex-shrink-0 border-t-[#14151A] border-t-2 -mt-1 ">
+        <div className="flex items-center justify-between ">
+          <div className="flex w-full items-center  justify-between gap-2 sm:gap-3 ">
             <span className="font-bold text-white text-sm sm:text-[20px] sm:text-base">Live Chat</span>
-            <div className="bg-[#3f70e4] text-white px-2 py-1 text-[16px] flex items-center gap-1">
-              <User className="w-4 h-4" />
-              {players.length}
+            <div className="bg-[#3f70e4] text-white h-[32px] w-[63px] text-[16px] font-semibold flex justify-center text-center items-center gap-1 rounded-[2px]">
+              <User className="w-[20px] h-[20px] "  />
+            
+              <span className="mt-1">{players.length}</span>
             </div>
           </div>
-          <Button onClick={onAddUser} size="sm" className="bg-[#3f70e4] hover:bg-[#3f70e4]/80 h-6 w-6 p-0">
+          {/* <Button onClick={onAddUser} size="sm" className="bg-[#3f70e4] hover:bg-[#3f70e4]/80 h-6 w-6 p-0">
             <Plus className="w-3 h-3" />
-          </Button>
+          </Button> */}
         </div>
       </div>
 
