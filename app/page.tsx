@@ -87,7 +87,7 @@ export default function RustleGamingInterface() {
   return (
     <div className="min-h-screen bg-[#14151a] text-white flex flex-col lg:flex-row">
       {/* Left Sidebar - Desktop */}
-      <div className="hidden lg:flex w-80 bg-[#1b1b23]  left-0 border-r border-[#2a2a39] flex-col">
+      <div className="hidden lg:flex w-80 bg-[#1b1b23]  left-0 flex-col">
         <div className=" border-b border-[#2a2a39] overflow-hidden">
           <div className="flex items-center justify-center  gap-3">
             <Image
@@ -138,15 +138,15 @@ export default function RustleGamingInterface() {
             </a>
             <div className="flex items-center gap-1">
               <Image
-                src="/images/twitter.svg"
-                alt="Twitter/X"
+                src="/images/discord.svg"
+                alt="Discord"
                 width={20}
                 height={20}
                 className="object-contain"
               />
               <Image
-                src="/images/discord.svg"
-                alt="Discord"
+                src="/images/twitter.svg"
+                alt="Twitter/X"
                 width={20}
                 height={20}
                 className="object-contain"
@@ -167,9 +167,14 @@ export default function RustleGamingInterface() {
               >
                 <Menu className="w-4 h-4" />
               </Button>
-              <div className="flex items-center gap-2">
-                <div className="w-5 h-5 sm:w-6 sm:h-6 bg-[#3f70e4] rounded transform rotate-45"></div>
-                <span className="text-base sm:text-lg font-bold">Rustle</span>
+              <div className="flex items-start gap-2">
+                <Image
+                  src="/images/logo.svg"
+                  alt="Logo"
+                  width={200}
+                  height={200}
+                  className="object-contain "
+                />
               </div>
             </div>
 
@@ -318,12 +323,9 @@ export default function RustleGamingInterface() {
                   All for the pot, and the pot for one
                 </p>
               </div>
-              <button
-  className="relative bg-[url('/images/deposit.svg')] bg-cover bg-center rounded-sm hover:opacity-80 cursor-pointer sm:px-10 py-2 text-sm sm:text-base w-[164px] sm:w-auto text-white"
->
-  Deposit
-</button>
-
+              <button className="relative bg-[url('/images/deposit.svg')] bg-cover bg-center rounded-[4px] hover:opacity-80 cursor-pointer sm:px-10 py-2 text-sm sm:text-base w-[164px] sm:w-auto text-white border-t-[0.15px] border-white/15">
+                Deposit
+              </button>
             </div>
 
             {/* Game Area */}
