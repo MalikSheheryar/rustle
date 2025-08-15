@@ -23,7 +23,7 @@ const initialPlayers = [
   {
     id: 2,
     username: 'SufferGFX',
-    avatar: '/images/cartoon-avatar.jpeg',
+    avatar: '/images/player2.svg',
     items: [],
     value: '$89.50',
     percentage: '21.60%',
@@ -32,7 +32,7 @@ const initialPlayers = [
   {
     id: 3,
     username: 'ImBob',
-    avatar: '/images/cartoon-avatar.jpeg',
+    avatar: '/images/player4.svg',
     items: [],
     value: '$76.20',
     percentage: '18.40%',
@@ -41,7 +41,7 @@ const initialPlayers = [
   {
     id: 4,
     username: 'Beanie',
-    avatar: '/images/cartoon-avatar.jpeg',
+    avatar: '/images/player3.svg',
     items: [],
     value: '$65.80',
     percentage: '15.90%',
@@ -50,7 +50,7 @@ const initialPlayers = [
   {
     id: 5,
     username: 'Brad',
-    avatar: '/images/cartoon-avatar.jpeg',
+    avatar: '/images/player5.svg',
     items: [],
     value: '$77.70',
     percentage: '18.75%',
@@ -91,7 +91,7 @@ export default function RustleGamingInterface() {
         <div className=" border-b border-[#2a2a39] overflow-hidden">
           <div className="flex items-center justify-center  gap-3">
             <Image
-              src="/images/logoparticle.jpg"
+              src="/images/logo.svg"
               alt="Logo"
               width={270}
               height={270}
@@ -111,7 +111,7 @@ export default function RustleGamingInterface() {
       {/* Main Content Area */}
       <div className="flex-1   pl-2 flex flex-col min-w-0">
         <div className="bg-[#14151a] border-b border-[#2a2a39]/30 px-2 sm:px-4 py-1">
-          <nav className="flex items-center justify-start gap-3 font-semibold sm:gap-6 text-[12px] text-gray-500 overflow-x-auto">
+          <nav className="flex items-center justify-start gap-3 font-semibold sm:gap-6 text-[12px] text-neutral-500 overflow-x-auto">
             <a
               href="#"
               className="hover:text-gray-300 transition-colors whitespace-nowrap"
@@ -138,17 +138,17 @@ export default function RustleGamingInterface() {
             </a>
             <div className="flex items-center gap-1">
               <Image
-                src="/images/x.png"
+                src="/images/twitter.svg"
                 alt="Twitter/X"
-                width={12}
-                height={12}
+                width={20}
+                height={20}
                 className="object-contain"
               />
               <Image
-                src="/images/dis.png"
+                src="/images/discord.svg"
                 alt="Discord"
-                width={12}
-                height={12}
+                width={20}
+                height={20}
                 className="object-contain"
               />
             </div>

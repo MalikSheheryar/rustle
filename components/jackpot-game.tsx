@@ -97,85 +97,74 @@ export function JackpotGame({ players, onDeleteUser }: JackpotGameProps) {
     }
   };
 
-  const startSpinning = () => {
-    setGameState('spinning');
-    setIsSpinning(true);
-    setWinnerCardTwist(false);
 
-    const randomWinner = players[Math.floor(Math.random() * players.length)];
-    setWinner(randomWinner);
 
-    const tileWidth = 140;
-    const containerWidth = spinContainerRef.current?.offsetWidth || 800;
+const startSpinning = () => {
+  setGameState('spinning');
+  setIsSpinning(true);
+  setWinnerCardTwist(false);
 
-    const totalSpinDistance = tileWidth * players.length * 6;
-    const winnerIndex = players.findIndex((p) => p.id === randomWinner.id) - 1;
+  const randomWinner = players[Math.floor(Math.random() * players.length)];
+  setWinner(randomWinner);
 
-    // Calculate exact center position under the pointer
-    const centerOffset = containerWidth / 2 - tileWidth / 2;
-    const winnerTilePosition = winnerIndex * tileWidth;
-    const overshootDistance = tileWidth * 2;
+  const tileWidth = 140;
+  const containerWidth = spinContainerRef.current?.offsetWidth || 800;
 
-    // Final position should center the winning tile exactly under the pointer
-    const finalPosition = -(
-      totalSpinDistance +
-      winnerTilePosition -
-      centerOffset
-    );
-    const overshootPosition = finalPosition - overshootDistance;
+  const repetitions = 12; // more loops for a faster-looking spin
+  const infiniteTiles = createInfiniteTiles();
 
-    let startTime: number;
-    const spinDuration = 4000;
-    const overshootDuration = 800;
-    const totalDuration = spinDuration + overshootDuration;
+  // Winner in the original players array
+  const winnerIndexOriginal = players.findIndex(p => p.id === randomWinner.id)+2;
 
-    const animate = (currentTime: number) => {
-      if (!startTime) startTime = currentTime;
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / totalDuration, 1);
+  // Pick winner from the last repetition
+  const winnerTileIndex = winnerIndexOriginal + players.length * (repetitions - 1);
 
-      let currentOffset: number;
+  // Center the winner under the pointer
+  const centerOffset = containerWidth / 2 - tileWidth / 2;
+  const winnerTilePosition = winnerTileIndex * tileWidth;
+  const finalPosition = -(winnerTilePosition - centerOffset);
 
-      if (elapsed <= spinDuration) {
-        // Spinning phase
-        const spinProgress = elapsed / spinDuration;
-        const easeInOutQuart = (t: number) => {
-          return t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
-        };
-        const easedProgress = easeInOutQuart(spinProgress);
-        currentOffset = overshootPosition * easedProgress;
-      } else {
-        // Overshoot and snap back phase
-        const overshootProgress = (elapsed - spinDuration) / overshootDuration;
-        const easeOutBack = (t: number) => {
-          const c1 = 1.70158;
-          const c3 = c1 + 1;
-          return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
-        };
-        const easedOvershoot = easeOutBack(overshootProgress);
-        currentOffset =
-          overshootPosition +
-          (finalPosition - overshootPosition) * easedOvershoot;
+  let startTime: number;
+  const spinDuration = 10000; // 10 seconds
 
-        if (overshootProgress > 0.8 && !winnerCardTwist) {
-          setWinnerCardTwist(true);
-        }
-      }
+  const animate = (currentTime: number) => {
+    if (!startTime) startTime = currentTime;
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / spinDuration, 1);
 
-      setSpinOffset(currentOffset);
+    // Ease-in-out quart for smooth acceleration/deceleration
+    const easeInOutQuart = (t: number) =>
+      t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
 
-      if (progress < 1) {
-        animationRef.current = requestAnimationFrame(animate);
-      } else {
-        setIsSpinning(false);
-        setTimeout(() => {
-          setGameState('finished');
-        }, 1000);
-      }
-    };
+    const easedProgress = easeInOutQuart(progress);
 
-    animationRef.current = requestAnimationFrame(animate);
+    // Dynamic distance: spins full finalPosition
+    const currentOffset = finalPosition * easedProgress;
+
+    setSpinOffset(currentOffset);
+
+    // Winner card twist trigger near the end
+    if (progress > 0.95 && !winnerCardTwist) {
+      setWinnerCardTwist(true);
+    }
+
+    if (progress < 1) {
+      animationRef.current = requestAnimationFrame(animate);
+    } else {
+      setIsSpinning(false);
+      setTimeout(() => setGameState('finished'), 500);
+    }
   };
+
+  animationRef.current = requestAnimationFrame(animate);
+};
+
+
+
+
+
+
+
 
   const resetGame = () => {
     if (animationRef.current) {
@@ -372,6 +361,7 @@ export function JackpotGame({ players, onDeleteUser }: JackpotGameProps) {
             }}
           >
             {createInfiniteTiles().map((tile) => {
+             
               const isWinnerTile =
                 winner &&
                 tile.originalIndex ===
@@ -379,6 +369,7 @@ export function JackpotGame({ players, onDeleteUser }: JackpotGameProps) {
 
               const shouldTwist =
                 isWinnerTile && winnerCardTwist && !isSpinning;
+               console.log({winner,isWinnerTile})
 
               return (
                 <div
@@ -465,7 +456,7 @@ export function JackpotGame({ players, onDeleteUser }: JackpotGameProps) {
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-4 sm:mb-6">
         <div className="bg-[#1a1b23] p-4 text-center ">
-          <div className="text-gray-400 text-xs sm:text-sm mb-2">
+          <div className="text-gray-400 font-semibold text-[14px] sm:text-sm mb-2">
             Current Pot
           </div>
           <div className="text-lg sm:text-xl font-bold text-white">
@@ -473,13 +464,13 @@ export function JackpotGame({ players, onDeleteUser }: JackpotGameProps) {
           </div>
         </div>
         <div className="bg-[#1a1b23] p-4 text-center ">
-          <div className="text-gray-400 text-xs sm:text-sm mb-2">Items</div>
+          <div className="text-gray-400 font-semibold text-[14px] sm:text-sm mb-2">Items</div>
           <div className="text-lg sm:text-xl font-bold text-white">
             {players.length}
           </div>
         </div>
         <div className="bg-[#1a1b23] p-4 text-center ">
-          <div className="text-gray-400 text-xs sm:text-sm mb-2">
+          <div className="text-gray-400 font-semibold text-[14px] sm:text-sm mb-2">
             Your Wager
           </div>
           <div className="text-lg sm:text-xl font-bold text-white">
@@ -487,7 +478,7 @@ export function JackpotGame({ players, onDeleteUser }: JackpotGameProps) {
           </div>
         </div>
         <div className="bg-[#1a1b23] p-4 text-center ">
-          <div className="text-gray-400 text-xs sm:text-sm mb-2">
+          <div className="text-gray-400 font-semibold text-[14px] sm:text-sm mb-2">
             Your Chance
           </div>
           <div className="text-lg sm:text-xl font-bold text-white">
@@ -497,12 +488,12 @@ export function JackpotGame({ players, onDeleteUser }: JackpotGameProps) {
       </div>
 
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-xs sm:text-sm text-gray-400 mb-3 sm:mb-4 gap-2 sm:gap-0">
-        <div className="flex font-bold items-center gap-2">
+        <div className="flex text-neutral-400 font-bold items-center gap-2">
           Round<span className="text-white">#25128</span>
         </div>
-        <div className="flex items-center gap-2">
-          <User className="w-3 h-3 sm:w-4 sm:h-4" />
-          <span>{players.length} Players</span>
+        <div className="flex text-white items-center ">
+          <User className="w-[20px] font-semibold h-[20px] sm:w-4 sm:h-4" />
+          <span className=' mr-2 font-semibold text-[16px]'>{players.length}</span><span className='text-neutral-500 text-[16px]'>Players</span>
         </div>
       </div>
 
