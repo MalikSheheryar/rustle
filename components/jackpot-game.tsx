@@ -556,7 +556,7 @@ export function JackpotGame({ players, onDeleteUser }: JackpotGameProps) {
                   alt={player.username}
                   className="w-10 h-10 sm:w-12 sm:h-12 object-cover rounded-[3px]"
                 />
-                <div className="text-white font-medium text-sm sm:text-base">
+                <div className="text-white font-semibold text-[16px] sm:text-base">
                   {player.username}
                 </div>
               </div>
