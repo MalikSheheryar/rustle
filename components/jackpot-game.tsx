@@ -337,7 +337,7 @@ export function JackpotGame({ players, onDeleteUser }: JackpotGameProps) {
               {gridAvatars.map((tile) => (
                 <div
                   key={tile.id}
-                  className={`relative p-4 flex-shrink-0 w-[196px] h-[246px] flex flex-col items-center justify-center border border-white/10 transition-transform duration-1000 overflow-hidden`}
+                  className={`relative rounded-[4px] p-4 flex-shrink-0 w-[196px] h-[246px] flex flex-col items-center justify-center border border-white/10 transition-transform duration-1000 overflow-hidden`}
                   style={{
                     userSelect: 'none',
                   }}
@@ -346,7 +346,7 @@ export function JackpotGame({ players, onDeleteUser }: JackpotGameProps) {
                   <img
                     src={tile.avatar || '/placeholder.svg'}
                     alt={tile.username}
-                    className="relative z-10 w-[164px] rounded h-[164px] object-cover mb-2 pointer-events-none"
+                    className="relative z-10 w-[164px]  h-[164px] object-cover mb-2 pointer-events-none rounded-[3px]"
                     draggable={false}
                   />
                   <div className="relative z-10 text-white text-sm font-bold text-center truncate w-full px-1 pointer-events-none">
@@ -394,7 +394,7 @@ export function JackpotGame({ players, onDeleteUser }: JackpotGameProps) {
                   key={tile.id}
                   className={`relative p-4 flex-shrink-0 w-[144px] sm:w-[156px] md:w-[168px] lg:w-[180px] xl:w-[196px] 
                     h-[180px] sm:h-[200px] md:h-[220px] lg:h-[240px] xl:h-[246px] 
-                    flex flex-col items-center justify-center transition-all duration-500 overflow-hidden
+                    flex flex-col items-center justify-center transition-all duration-500 overflow-hidden rounded-[4px]
                     ${
                       shouldAnimate
                         ? 'scale-110 shadow-2xl shadow-yellow-400/60 z-10'
@@ -416,7 +416,7 @@ export function JackpotGame({ players, onDeleteUser }: JackpotGameProps) {
                   <img
                     src={tile.avatar || '/placeholder.svg'}
                     alt={tile.username}
-                    className="relative z-10 w-[100px] sm:w-[120px] md:w-[140px] lg:w-[160px] xl:w-[164px] h-[100px] sm:h-[120px] md:h-[140px] lg:h-[160px] xl:h-[164px] object-cover mb-2 rounded"
+                    className="relative z-10 w-[100px] sm:w-[120px] md:w-[140px] lg:w-[160px] xl:w-[164px] h-[100px] sm:h-[120px] md:h-[140px] lg:h-[160px] xl:h-[164px] object-cover mb-2 rounded-[3px]"
                   />
                   <div className="relative z-10 text-white text-xs sm:text-sm font-bold text-center truncate w-full px-1">
                     {tile.username}
