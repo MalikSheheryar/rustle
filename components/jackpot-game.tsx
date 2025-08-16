@@ -337,7 +337,7 @@ export function JackpotGame({ players, onDeleteUser }: JackpotGameProps) {
               {gridAvatars.map((tile) => (
                 <div
                   key={tile.id}
-                  className={`relative p-4 flex-shrink-0 w-[144px] h-[196px] flex flex-col items-center justify-center border border-white/10 transition-transform duration-1000 overflow-hidden`}
+                  className={`relative p-4 flex-shrink-0 w-[196px] h-[246px] flex flex-col items-center justify-center border border-white/10 transition-transform duration-1000 overflow-hidden`}
                   style={{
                     userSelect: 'none',
                   }}
@@ -346,7 +346,7 @@ export function JackpotGame({ players, onDeleteUser }: JackpotGameProps) {
                   <img
                     src={tile.avatar || '/placeholder.svg'}
                     alt={tile.username}
-                    className="relative z-10 w-[112px] rounded h-[112px] object-cover mb-2 pointer-events-none"
+                    className="relative z-10 w-[164px] rounded h-[164px] object-cover mb-2 pointer-events-none"
                     draggable={false}
                   />
                   <div className="relative z-10 text-white text-sm font-bold text-center truncate w-full px-1 pointer-events-none">
@@ -487,7 +487,7 @@ export function JackpotGame({ players, onDeleteUser }: JackpotGameProps) {
           </div>
           <button
             onClick={resetGame}
-            className="bg-[#3f70e4] hover:bg-[#3f70e4]/80 text-white px-8 py-3 font-medium transition-colors duration-200"
+            className="bg-[#3f70e4] hover:bg-[#3f70e4]/80 text-white px-8 py-3 font-medium transition-colors duration-200 rounded-[3px]"
           >
             Start New Round
           </button>
@@ -496,7 +496,7 @@ export function JackpotGame({ players, onDeleteUser }: JackpotGameProps) {
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-4 sm:mb-6">
         <div className="bg-[#1a1b23] p-4 text-center">
-          <div className="text-gray-400 font-semibold text-[14px] sm:text-sm mb-2">
+          <div className="text-[#ffffff]/80 font-semibold text-[14px] sm:text-sm mb-2">
             Current Pot
           </div>
           <div className="text-lg sm:text-xl font-bold text-white">
@@ -504,7 +504,7 @@ export function JackpotGame({ players, onDeleteUser }: JackpotGameProps) {
           </div>
         </div>
         <div className="bg-[#1a1b23] p-4 text-center">
-          <div className="text-gray-400 font-semibold text-[14px] sm:text-sm mb-2">
+          <div className="text-[#ffffff]/80 font-semibold text-[14px] sm:text-sm mb-2">
             Items
           </div>
           <div className="text-lg sm:text-xl font-bold text-white">
@@ -512,7 +512,7 @@ export function JackpotGame({ players, onDeleteUser }: JackpotGameProps) {
           </div>
         </div>
         <div className="bg-[#1a1b23] p-4 text-center">
-          <div className="text-gray-400 font-semibold text-[14px] sm:text-sm mb-2">
+          <div className="text-[#ffffff]/80 font-semibold text-[14px] sm:text-sm mb-2">
             Your Wager
           </div>
           <div className="text-lg sm:text-xl font-bold text-white">
@@ -520,7 +520,7 @@ export function JackpotGame({ players, onDeleteUser }: JackpotGameProps) {
           </div>
         </div>
         <div className="bg-[#1a1b23] p-4 text-center">
-          <div className="text-gray-400 font-semibold text-[14px] sm:text-sm mb-2">
+          <div className="text-[#ffffff]/80 font-semibold text-[14px] sm:text-sm mb-2">
             Your Chance
           </div>
           <div className="text-lg sm:text-xl font-bold text-white">
@@ -554,7 +554,7 @@ export function JackpotGame({ players, onDeleteUser }: JackpotGameProps) {
                 <img
                   src={player.avatar || '/placeholder.svg'}
                   alt={player.username}
-                  className="w-10 h-10 sm:w-12 sm:h-12 object-cover rounded-full"
+                  className="w-10 h-10 sm:w-12 sm:h-12 object-cover rounded-[3px]"
                 />
                 <div className="text-white font-medium text-sm sm:text-base">
                   {player.username}
@@ -562,11 +562,11 @@ export function JackpotGame({ players, onDeleteUser }: JackpotGameProps) {
               </div>
 
               <div className="relative z-10 flex items-center gap-4 w-[70%] justify-evenly sm:gap-6">
-                <div className="text-right">
-                  <div className="text-white text-sm sm:text-base font-medium">
+                <div className="text-start font-semibold text-[#FFFFFF] lg:text-[16px]">
+                  <div className="  sm:text-base ">
                     {player.itemName}
                   </div>
-                  <div className="text-white/80 text-xs sm:text-sm">
+                  <div className=" sm:text-sm">
                     {player.itemValue}
                   </div>
                 </div>

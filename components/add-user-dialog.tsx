@@ -55,7 +55,7 @@ export function AddUserDialog({ open, onOpenChange, onAddUser }: AddUserDialogPr
           <DialogTitle>Add New Player</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
+          <div className="space-y-2">
             <Label htmlFor="username">Username</Label>
             <Input
               id="username"
@@ -65,7 +65,7 @@ export function AddUserDialog({ open, onOpenChange, onAddUser }: AddUserDialogPr
               className="bg-[#14151a] border-[#2a2a39] text-white"
             />
           </div>
-          <div>
+          <div className="space-y-2">
             <Label htmlFor="value">Bet Value</Label>
             <Input
               id="value"
@@ -75,7 +75,7 @@ export function AddUserDialog({ open, onOpenChange, onAddUser }: AddUserDialogPr
               className="bg-[#14151a] border-[#2a2a39] text-white"
             />
           </div>
-          <div>
+          <div className="space-y-2">
             <Label htmlFor="percentage">Win Percentage</Label>
             <Input
               id="percentage"
@@ -100,7 +100,7 @@ export function AddUserDialog({ open, onOpenChange, onAddUser }: AddUserDialogPr
               type="button"
               variant="outline"
               onClick={() => onOpenChange(false)}
-              className="border-[#2a2a39] text-white hover:bg-[#2a2a39]"
+              className="border-[#2a2a39] text-black hover:text-white hover:bg-[#2a2a39]"
             >
               Cancel
             </Button>

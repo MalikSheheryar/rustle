@@ -76,11 +76,11 @@ export function WinnersSidebar() {
                   {section.winner.username}
                 </div>
                 <div
-                  className={`font-semibold text-[14px] sm:text-[14px] text-white mb-1 px-[10px] py-[4px] rounded ${section.winner.bgColor}`}
+                  className={`font-semibold text-[14px] sm:text-[14px] text-white mb-2 px-[10px] py-[4px] rounded-[2px] ${section.winner.bgColor}`}
                 >
                   {section.winner.amount}
                 </div>
-                <div className="text-[14px] mb-3 font-semibold text-gray-400">
+                <div className="text-[14px] mb-3 font-semibold text-[#FFFFFFCC]">
                   {section.winner.percentage}
                 </div>
               </div>
